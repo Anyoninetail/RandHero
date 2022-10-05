@@ -22,6 +22,7 @@ public class TextManager : MonoBehaviour
     public void StartText()
     {
         dialog.text = "";
+        isReading = true;
         StartCoroutine("TextWork");
     }
 
