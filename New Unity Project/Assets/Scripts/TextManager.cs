@@ -11,6 +11,7 @@ public class TextManager : MonoBehaviour
     public bool isReading;
     public int textNum;
     public GameObject skipButton;
+    public Image nextButtonImage;
 
     void Start()
     {
@@ -25,6 +26,7 @@ public class TextManager : MonoBehaviour
         skipButton.SetActive(true);
         dialog.text = "";
         isReading = true;
+        nextButtonImage.gameObject.SetActive(false);
         StartCoroutine("TextWork");
     }
 
@@ -34,8 +36,8 @@ public class TextManager : MonoBehaviour
         {
             StopCoroutine("TextWork");
             dialog.text = originText;
+            nextButtonImage.gameObject.SetActive(true);
             isReading = false;
-            
         }
         else if(textMap.GetValueOrDefault(textNum + 1) != null)
         {
@@ -46,6 +48,7 @@ public class TextManager : MonoBehaviour
         else
         {
             skipButton.SetActive(false);
+            nextButtonImage.gameObject.SetActive(false);
             dialog.text = "";
         }
     }
@@ -58,6 +61,7 @@ public class TextManager : MonoBehaviour
             dialog.text = originText.Substring(0, i);
         }
         isReading = false;
+        nextButtonImage.gameObject.SetActive(true);
         yield break;
     }
 
