@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        LoadEncounterMap();
         dayLeft = 15;
         daysRemain.text = "¸¶¿Õ¼º\nµµÂø±îÁö\n" + dayLeft + "ÀÏ";
     }
@@ -22,7 +23,10 @@ public class GameManager : MonoBehaviour
         nextDay.SetActive(true);
     }
 
+    public void Encounter()
+    { 
 
+    }
 
 
 
