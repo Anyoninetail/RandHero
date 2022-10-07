@@ -6,15 +6,21 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public Text daysRemain;
+    public Text currentDay;
     public int dayLeft;
+    public GameObject nextDay;
 
     void Start()
     {
         dayLeft = 15;
-        daysRemain.text = "마왕성 도착까지\n" + dayLeft + "일";
+        daysRemain.text = "마왕성\n도착까지\n" + dayLeft + "일";
     }
 
-
+    public void ShowNextDay()
+    {
+        currentDay.text = (16 - dayLeft) + "일차";
+        nextDay.SetActive(true);
+    }
 
 
 
