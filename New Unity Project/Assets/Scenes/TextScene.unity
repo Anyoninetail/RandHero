@@ -311,13 +311,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fab97c0a299c1c4abbace5824da348b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerName: 
   originText: "\u3141\u3134\u3147\u3139"
-  dialog: {fileID: 1752413598}
   textSpeed: 0.08
   isReading: 0
   textNum: 10000
+  nextTextNum: 0
+  gameManager: {fileID: 1257999673}
   skipButton: {fileID: 1367874704}
   nextButtonImage: {fileID: 1427172719}
+  dialog: {fileID: 1752413598}
 --- !u!4 &547691105
 Transform:
   m_ObjectHideFlags: 0
@@ -768,10 +771,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc4d0fac656fbfa46a4a8a9e3a751828, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  daysRemain: {fileID: 727603812}
-  currentDay: {fileID: 0}
+  dayEncounterLeft: 0
   dayLeft: 10
-  nextDay: {fileID: 0}
+  daysRemain: {fileID: 727603812}
+  currentDay: {fileID: 2004163943}
+  playerName: {fileID: 344881778}
+  nextDay: {fileID: 1054234006}
+  textManager: {fileID: 547691104}
 --- !u!4 &1257999674
 Transform:
   m_ObjectHideFlags: 0
