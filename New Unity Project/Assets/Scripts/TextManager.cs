@@ -74,7 +74,7 @@ public class TextManager : MonoBehaviour
             skipButton.SetActive(false);
             nextButtonImage.gameObject.SetActive(false);
             dialog.text = "";
-            gameManager.Encounter();
+            gameManager.EncounterResult();
         }
     }
 

@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public int dayEncounterLeft;
-    public int dayLeft;
+    public static int mobType;
+    public static int dayEncounterLeft = 3;
+    public static int dayLeft = 15;
     public Text daysRemain;
     public Text currentDay;
     public Text playerName;
@@ -15,8 +16,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        dayLeft = 15;
-        dayEncounterLeft = 3;
         daysRemain.text = "마왕성\n도착까지\n" + dayLeft + "일";
         playerName.text = textManager.playerName;
     }
@@ -66,6 +65,37 @@ public class GameManager : MonoBehaviour
 
             textManager.StartText();
             dayEncounterLeft--;
+        }
+    }
+
+    public void EncounterResult()
+    {
+        switch(textManager.textNum)
+        {
+            case 10018: //인트로 끝났을 때
+                Encounter();
+                break;
+            //전투 개시
+            case 21003:
+                mobType = 0; //몹타입 0 == 슬라임
+                break;
+            case 22003:
+                mobType = 1; //몹타입 1 == 오크
+                break;
+            case 23007:
+                mobType = 2; //몹타입 2 == 고블린
+                break;
+            case 24102:
+                mobType = 3; //몹타입 3 == 미믹
+                break;
+            case 31005:
+                mobType = 4; //몹타입 4 == 이교도
+                break;
+
+            //전투 외 행동
+            default:
+                Debug.Log("예상 외의 케이스가 발생했습니다.");
+                break;
         }
     }
 }

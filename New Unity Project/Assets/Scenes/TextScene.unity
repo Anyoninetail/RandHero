@@ -771,8 +771,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc4d0fac656fbfa46a4a8a9e3a751828, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dayEncounterLeft: 0
-  dayLeft: 10
   daysRemain: {fileID: 727603812}
   currentDay: {fileID: 2004163943}
   playerName: {fileID: 344881778}
