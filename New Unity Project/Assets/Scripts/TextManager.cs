@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TextManager : MonoBehaviour
 {
-    public string playerName;
+    public static string playerName = "[플레이어]";
     public string originText;
     public float textSpeed;
     public bool isReading;
@@ -18,7 +18,6 @@ public class TextManager : MonoBehaviour
 
     void Start()
     {
-        playerName = "[플레이어]";
         LoadTextMap();
         textNum = 10000;
         nextTextNum = -1;
@@ -199,7 +198,7 @@ public class TextManager : MonoBehaviour
 
     Dictionary<int, string> textMap;
 
-    void LoadTextMap()
+    private void LoadTextMap()
     {
         textMap = new Dictionary<int, string>();
 

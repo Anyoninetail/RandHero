@@ -10,20 +10,23 @@ public class GameManager : MonoBehaviour
     public static int dayLeft = 15;
     public Text daysRemain;
     public Text currentDay;
-    public Text playerName;
+    public Text playerNameText;
     public GameObject nextDay;
     public TextManager textManager;
 
     void Start()
     {
         daysRemain.text = "마왕성\n도착까지\n" + dayLeft + "일";
-        playerName.text = textManager.playerName;
+        playerNameText.text = TextManager.playerName;
     }
 
     public void ShowNextDay()
     {
-        currentDay.text = 16 - --dayLeft + "일차";
-        nextDay.SetActive(true);
+        if(dayLeft > 0)
+        {
+            currentDay.text = 16 - dayLeft-- + "일차";
+            nextDay.SetActive(true);
+        }
     }
 
     public void Encounter()
@@ -74,6 +77,7 @@ public class GameManager : MonoBehaviour
         {
             case 10018: //인트로 끝났을 때
                 Encounter();
+                ShowNextDay();
                 break;
             //전투 개시
             case 21003:
@@ -95,6 +99,7 @@ public class GameManager : MonoBehaviour
             //전투 외 행동
             default:
                 Debug.Log("예상 외의 케이스가 발생했습니다.");
+                Encounter();
                 break;
         }
     }
