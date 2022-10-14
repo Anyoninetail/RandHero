@@ -9,8 +9,7 @@ public class BattleTextManager : MonoBehaviour
     public float textSpeed;
     public bool isReading;
     public int textNum;
-    public int diceCount;
-    public int enemyDiceCount;
+    public int nextTextNum;
     public GameObject skipButton;
     public Image nextButtonImage;
     public Text dialog;
@@ -18,6 +17,8 @@ public class BattleTextManager : MonoBehaviour
 
     void Start()
     {
+        textNum = 10000;
+        nextTextNum = -1;
         LoadTextMap();
     }
 
@@ -44,6 +45,12 @@ public class BattleTextManager : MonoBehaviour
         {
             originText = battleTextMap.GetValueOrDefault(++textNum);
             StartText();
+        }
+        else if(nextTextNum != -1)
+        {
+            textNum += nextTextNum;
+            textNum -= textNum % 1000;
+            nextTextNum = -1;
         }
         else
         {
@@ -116,20 +123,23 @@ public class BattleTextManager : MonoBehaviour
     {
         battleTextMap = new Dictionary<int, string>();
 
-        battleTextMap.Add(10000, TextManager.playerName + "의 주사위 : " + diceCount);
-        battleTextMap.Add(10001, battleManager.mobName + "의 주사위 : " + enemyDiceCount);
+        //인트로
+        battleTextMap.Add(10000, "전투 개시!");
+
+        battleTextMap.Add(20000, TextManager.playerName + "의 주사위 : " + battleManager.diceCount);
+        battleTextMap.Add(20001, battleManager.mobName + "의 주사위 : " + battleManager.enemyDiceCount);
 
         //플레이어 우위
-        battleTextMap.Add(11000, TextManager.playerName + "(이)가 " + battleManager.mobName + "에게 " + (diceCount - enemyDiceCount) + "의 피해를 입혔다.");
+        battleTextMap.Add(21000, TextManager.playerName + "(이)가 " + battleManager.mobName + "에게 " + (battleManager.diceCount - battleManager.enemyDiceCount) + "의 피해를 입혔다.");
         //몹 우위
-        battleTextMap.Add(12000, battleManager.mobName + "(이)가 " + TextManager.playerName + "에게 " + (enemyDiceCount - diceCount) + "의 피해를 입혔다.");
+        battleTextMap.Add(22000, battleManager.mobName + "(이)가 " + TextManager.playerName + "에게 " + (battleManager.enemyDiceCount - battleManager.diceCount) + "의 피해를 입혔다.");
         //동점
-        battleTextMap.Add(13000, "그 누구도 피해를 입지 않았다.");
+        battleTextMap.Add(23000, "그 누구도 피해를 입지 않았다.");
         //승리
-        battleTextMap.Add(20000, battleManager.mobName + "은(는) 쓰러졌다.");
-        battleTextMap.Add(20000, TextManager.playerName + "의 승리!");
+        battleTextMap.Add(30000, battleManager.mobName + "은(는) 쓰러졌다.");
+        battleTextMap.Add(30001, TextManager.playerName + "의 승리!");
         //패배
-        battleTextMap.Add(20000, TextManager.playerName + "은(는) 쓰러졌다.");
-        battleTextMap.Add(20000, TextManager.playerName + "의 패배...");
+        battleTextMap.Add(40000, TextManager.playerName + "은(는) 쓰러졌다.");
+        battleTextMap.Add(40001, TextManager.playerName + "의 패배...");
     }
 }

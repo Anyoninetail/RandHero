@@ -6,8 +6,15 @@ using UnityEngine.UI;
 public class BattleManager : MonoBehaviour
 {
     public string mobName;
+    public int playerHP;
+    public int enemyHP;
+    public int diceCount;
+    public int enemyDiceCount;
+    public GameObject rollPanel;
     public Text playerNameText;
     public Text enemyNameText;
+    public Image dice;
+
     void Start()
     {
         playerNameText.text = TextManager.playerName;
@@ -35,6 +42,35 @@ public class BattleManager : MonoBehaviour
 
     public void Next()
     {
+        if(playerHP > 0 && enemyHP > 0)
+        {
+            //다음 전투
+            Roll();
+            enemyDiceCount = RollDice(true);
+        }
+        else if(playerHP > 0)
+        {
+            //승리
+        }
+        else
+        {
+            //패배
+        }
+    }
+
+    public void Roll()
+    {
         
+    }
+
+    public int RollDice(bool isAuto)
+    {
+        int num = 0;
+        dice.gameObject.SetActive(true);
+        if (!isAuto)
+        {
+
+        }
+        return num;
     }
 }
