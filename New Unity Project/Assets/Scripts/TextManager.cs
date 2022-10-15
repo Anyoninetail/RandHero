@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TextManager : MonoBehaviour
 {
-    public static string playerName = "[플레이어]";
+    public static string playerName;
     public string originText;
     public float textSpeed;
     public bool isReading;
@@ -18,10 +18,28 @@ public class TextManager : MonoBehaviour
 
     void Start()
     {
-        LoadTextMap();
-        textNum = 10000;
-        nextTextNum = -1;
-        StartText();
+        if(GameManager.isIntro)
+        {
+            LoadTextMap();
+            textNum = 10000;
+            nextTextNum = -1;
+            StartText();
+        }
+        else
+        {
+            LoadTextMap();
+
+            if (BattleManager.isWin)
+            {
+                textNum = 50000;
+            }
+            else
+            {
+                textNum = 51000;
+            }
+            gameManager.BattleResult();
+            StartText();
+        }
     }
 
     public void StartText()
@@ -46,6 +64,11 @@ public class TextManager : MonoBehaviour
         else if(textMap.GetValueOrDefault(textNum + 1) != null)
         {
             originText = textMap.GetValueOrDefault(++textNum);
+            StartText();
+        }
+        else if(GameManager.money < 3 && textNum == 32000)
+        {
+            textNum = 67991;
             StartText();
         }
         else if(nextTextNum != -1)
@@ -255,7 +278,7 @@ public class TextManager : MonoBehaviour
         //상자 인카운터
         textMap.Add(24000, playerName + "은(는) 풀숲 옆으로 돌아나왔다.");
         textMap.Add(24001, "그곳엔.....");
-        textMap.Add(24002, "황금빛 보물상자가 반쯤 묻혀 있었다!!");
+        textMap.Add(24002, "평범한 보물상자가 반쯤 묻혀 있었다!!");
         textMap.Add(24003, "신난 " + playerName + "은(는) 묻힌 보물상자를 파내 열어보았다.");
         textMap.Add(24004, "보물상자 안에는.....");
         //상자 인카운터 - 1/상자가 사실 미믹
@@ -282,9 +305,14 @@ public class TextManager : MonoBehaviour
 
         //주점 인카운터
         textMap.Add(32000, "주점이었다.");
+        //주점 입장
         textMap.Add(32001, "마침 쉬고 싶었던 " + playerName + "은(는) 곧장 주점에 들어갔다.");
         textMap.Add(32002, "주점 내부는 꽤나 넓었다.");
         textMap.Add(32003, "음료를 하나 주문하고 나서, " + playerName + "은(는) 주변 대화를 엿들었다.");
+        //돈이없네... 주점 지나침
+        textMap.Add(67991, "마침 쉬고 싶었던 " + playerName + "은(는) 곧장 주점에 들어가려했으나...");
+        textMap.Add(67992, "음료를 살 돈이 충분하지 않았다.");
+        textMap.Add(67993, "아쉽지만 이번엔 그냥 지나가기로 했다.");
         //주점 인카운터 - 1/용사 미담
         textMap.Add(32100, "구석에서 주민 두명이 서로 대화하고 있었다.");
         textMap.Add(32101, "\"요즘 용사님이 나타났다지?\"");
@@ -310,8 +338,8 @@ public class TextManager : MonoBehaviour
         //떠돌이 상인 인카운터
         textMap.Add(33000, "떠돌이 상인이었다.");
         textMap.Add(33001, "눈이 마주치자 상인이 반가운 얼굴로 다가온다.");
-        textMap.Add(33002, "\"이야! 안녕하세요, 용사이신 것 같은데 물건 좀 보시겠습니까?\"");
-        textMap.Add(33003, playerName + "은(는) 물건을 둘러보았다.");
+        textMap.Add(33002, "\"이야~! 반갑습니다 용사님. 포션 좀 구매하시겠어요?\"");
+        textMap.Add(33003, playerName + "은(는) 포션을 보기로 했다.");
 
         //야바위 인카운터
         textMap.Add(34000, "거리 한복판에 누가 컵 3개를 앞에 두고 앉아 있었다.");
@@ -319,8 +347,8 @@ public class TextManager : MonoBehaviour
         textMap.Add(34002, "\"용사님이신 것 같은데... 저랑 놀이 하나 하시겠습니까?\"");
         textMap.Add(34003, "\"3개에 컵 중에 공을 하나 넣고 어디있는지 맞추는 겁니다.\"");
         textMap.Add(34004, "\"성공하면 3배에 3분의 1 확률, 공평하지 않습니까?\"");
-        textMap.Add(34005, "'어차피 사기 쳐봤자 나도 한 때 도박꾼이었으니 알아챌 수 있겠지...'");
-        textMap.Add(34006, "'한번 재미 좀 볼까?'");
+        textMap.Add(34005, "'괜찮은 게임인 것 같은데...'");
+        textMap.Add(34006, "'한번 해볼까..?'");
 
 
         //악천후(지역) 인카운터
@@ -342,6 +370,13 @@ public class TextManager : MonoBehaviour
         textMap.Add(42001, playerName + "은(는) 비가 그칠 때까지 그 곳에서 쉬었다.");
         textMap.Add(42002, "한참 뒤에야 비가 그쳤고, " + playerName + "은(는) 다시 갈 길을 떠났다.");
 
+
+        //전투 승리시
+        textMap.Add(50000, playerName + "은(는) 전투에서 승리했다.");
+        textMap.Add(50001, playerName + "은(는) 전리품을 챙겨 다시 갈 길을 떠났다.");
+        //전투 패배시
+        textMap.Add(51000, playerName + "은(는) 전투에서 패배했다.");
+        textMap.Add(51001, playerName + "은(는) 만신창이가 된 몸으로 겨우 도망쳤다.");
         //오류 메세지
         textMap.Add(90000, "인카운터 계산 과정에 오류가 생겼습니다.");
     }
