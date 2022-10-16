@@ -55,6 +55,9 @@ public class BattleManager : MonoBehaviour
             case 4:
                 mobName = "¿Ã±≥µµ";
                 break;
+            case 5:
+                mobName = "∏∂ø’";
+                break;
             default:
                 mobName = "???";
                 break;
@@ -172,7 +175,14 @@ public class BattleManager : MonoBehaviour
         StopCoroutine("EnemyRolling");
         isRolling = false;
         dice.sprite = diceIdleImage;
-        enemyDiceCount = Random.Range(1, 21);
+        if (GameManager.mobType == 5)
+        {
+            enemyDiceCount = Mathf.Max(Random.Range(1, 21), Random.Range(1, 21), Random.Range(1, 21));
+        }
+        else
+        {
+            enemyDiceCount = Random.Range(1, 21);
+        }
         diceNumText.text = enemyDiceCount.ToString();
         diceCountPanel.SetActive(true);
         StartCoroutine(HideRollPanel(false));

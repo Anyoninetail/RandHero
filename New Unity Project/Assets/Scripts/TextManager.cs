@@ -23,7 +23,6 @@ public class TextManager : MonoBehaviour
             LoadTextMap();
             textNum = 10000;
             nextTextNum = -1;
-            StartText();
         }
         else
         {
@@ -37,15 +36,29 @@ public class TextManager : MonoBehaviour
             {
                 textNum = 51000;
             }
+            nextTextNum = -1;
             gameManager.BattleResult();
-            StartText();
         }
+        StartText();
     }
 
     public void StartText()
     {
+        gameManager.ChangeEncounterImage();
         isReading = true;
         originText = textMap.GetValueOrDefault(textNum);
+        skipButton.SetActive(true);
+        dialog.text = "";
+        nextButtonImage.gameObject.SetActive(false);
+        StartCoroutine("TextWork");
+    }
+
+    public void StartText(bool isNotFirst)
+    {
+        gameManager.ChangeEncounterImage();
+        isReading = true;
+        originText = textMap.GetValueOrDefault(0);
+        textNum--;
         skipButton.SetActive(true);
         dialog.text = "";
         nextButtonImage.gameObject.SetActive(false);
@@ -69,6 +82,7 @@ public class TextManager : MonoBehaviour
         else if(GameManager.money < 3 && textNum == 32000)
         {
             textNum = 67991;
+            nextTextNum = -1;
             StartText();
         }
         else if(nextTextNum != -1)
@@ -213,7 +227,7 @@ public class TextManager : MonoBehaviour
 
 
 
-
+    
 
 
 
@@ -224,6 +238,9 @@ public class TextManager : MonoBehaviour
     private void LoadTextMap()
     {
         textMap = new Dictionary<int, string>();
+
+        //인카운터 중간과정
+        textMap.Add(0, "한참이 지난 후...");
 
         //인트로
         textMap.Add(10000, "'" + playerName + "'.");
@@ -300,7 +317,7 @@ public class TextManager : MonoBehaviour
         textMap.Add(31001, "그냥 지나가려고 하니 그 사람이 다가와 말을 꺼냈다.");
         textMap.Add(31002, "\"혹시 마왕교를 아십니까?\"");
         textMap.Add(31003, "..........");
-        textMap.Add(31004, "알고보니 이교도였다.");
+        textMap.Add(31004, "이 사람 이교도였다.");
         textMap.Add(31005, playerName + "은(는) 이 사람의 정신을 고쳐주기로 마음먹었다.");  //전투
 
         //주점 인카운터
@@ -341,14 +358,14 @@ public class TextManager : MonoBehaviour
         textMap.Add(33002, "\"이야~! 반갑습니다 용사님. 포션 좀 구매하시겠어요?\"");
         textMap.Add(33003, playerName + "은(는) 포션을 보기로 했다.");
 
-        //야바위 인카운터
-        textMap.Add(34000, "거리 한복판에 누가 컵 3개를 앞에 두고 앉아 있었다.");
-        textMap.Add(34001, playerName + "은(는) 호기심을 참지 못하고 뭐하고 있는지 물어보았다.");
-        textMap.Add(34002, "\"용사님이신 것 같은데... 저랑 놀이 하나 하시겠습니까?\"");
-        textMap.Add(34003, "\"3개에 컵 중에 공을 하나 넣고 어디있는지 맞추는 겁니다.\"");
-        textMap.Add(34004, "\"성공하면 3배에 3분의 1 확률, 공평하지 않습니까?\"");
-        textMap.Add(34005, "'괜찮은 게임인 것 같은데...'");
-        textMap.Add(34006, "'한번 해볼까..?'");
+        //동전게임 인카운터
+        textMap.Add(34000, "마을의 주민이었다.");
+        textMap.Add(34001, playerName + "을(를) 발견한 주민은 다가와 말을 걸었다.");
+        textMap.Add(34002, "\"용사님이신 것 같은데... 저랑 재밌는 게임 하나 하시겠습니까?\"");
+        textMap.Add(34003, "\"제가 동전을 던지면, 용사님이 앞면인지 뒷면인지 맞히시는 겁니다.\"");
+        textMap.Add(34004, "\"만약 맞히시면 3골드를 드리고, 못 맞히시면 3골드를 받아가겠습니다.\"");
+        textMap.Add(34005, "'마침 심심했는데 잘됐네'");
+        textMap.Add(34006, "'한번 해볼까?'");
 
 
         //악천후(지역) 인카운터
@@ -363,8 +380,8 @@ public class TextManager : MonoBehaviour
         textMap.Add(41000, "얼마나 지났을까...");
         textMap.Add(41001, playerName + "은(는) 계속 돌아다녔지만 비를 피할 만한 곳은 찾지 못했다.");
         textMap.Add(41002, "한참 뒤에야 비가 그쳤고, " + playerName + "은(는) 감기에 걸린 듯 하다.");
-        textMap.Add(41003, "설상가상으로 주머니 속 지폐도 젖어 형체를 알아볼 수 없게 되었다.");
-        textMap.Add(41004, playerName + "은(는) 사용할 수 없는 지폐를 몇 장 버렸다.");
+        textMap.Add(41003, "설상가상으로 이리저리 돌아다니다 돈도 조금 잃어버린 듯 하다.");
+        textMap.Add(41004, playerName + "은(는) 아쉬운대로 다시 가던 길을 가기로 했다.");
         //악천후 인카운터 - 2/비를 피했다(마을)
         textMap.Add(42000, "다행히 근처에 비를 피할 건물을 발견할 수 있었다.");
         textMap.Add(42001, playerName + "은(는) 비가 그칠 때까지 그 곳에서 쉬었다.");
@@ -377,6 +394,61 @@ public class TextManager : MonoBehaviour
         //전투 패배시
         textMap.Add(51000, playerName + "은(는) 전투에서 패배했다.");
         textMap.Add(51001, playerName + "은(는) 만신창이가 된 몸으로 겨우 도망쳤다.");
+
+
+        //보스 인카운터
+        textMap.Add(60000, playerName + "은(는) 마침내 마왕성에 도착했다.");
+        textMap.Add(60001, playerName + "이(가) 알현실까지 가는 길에는 아무 생명체도 없었다.");
+        textMap.Add(60002, playerName + "은(는) 모험의 끝을 직감한다.");
+        textMap.Add(60003, playerName + "이(가) 알현실에 도달했고, 그곳엔...");
+        //보스 인카운터 - 1/아무도 없었다.(랜덤 엔딩 1)
+        textMap.Add(61000, "아무도...없었다.....");
+        textMap.Add(61001, "무슨 일이 일어났는지는 모르겠으나 알현실엔 개미 한 마리 조차 보이지 않았다.");
+        textMap.Add(61002, playerName + "은(는) 차라리 잘 된 일이라며 성을 나섰다.");
+        textMap.Add(61003, playerName + "이(가) 고향에 돌아왔을 때엔 용사가 마왕을 물리쳤다는 소문이 돌고 있었다.");
+        textMap.Add(61004, "정작 용사인 " + playerName + "은(는) 마왕을 만나지도 못했다.");
+        textMap.Add(61005, "정말 마왕은 그냥 소멸한 것일까?");
+        textMap.Add(61006, ".....아니면 다른 꿍꿍이가 있는 것일까?");
+        textMap.Add(61007, "그건 마왕만 알 터였다.");
+        textMap.Add(61008, "'그렇지만 지금 당장은 평화가 찾아왔으니 괜찮을 것이다'");
+        textMap.Add(61009, playerName + "은(는) 집에 돌아가 쉬기로 한다.");
+        textMap.Add(61010, "아무 일도 없을것이다.");
+        textMap.Add(61011, ".....");
+        textMap.Add(61012, "아마도.");
+        textMap.Add(61013, "-랜덤 엔딩 1[이게 뭐야 찝찝하게.....]-");
+        textMap.Add(61014, "-운이 좋다면 다른 엔딩을 볼 수 있을지도 모릅니다.-");
+        //보스 인카운터 - 2/보스전!(승리시 랜덤 엔딩 2, 패배시 게임 오버)
+        textMap.Add(62000, playerName + "의 쌍둥이 동생이 있었다.");
+        textMap.Add(62001, playerName + "은(는) 그가 소문의 마왕이라는 것을 알아챘다.");
+        textMap.Add(62002, "어릴 적 " + playerName + "을(를) 꼬드겨 도박을 같이 하다 둘의 전재산을 들고 잠적한 그가,");
+        textMap.Add(62003, "지금, 여기에 마왕으로 있었다.");
+        textMap.Add(62004, "어릴적 기억이 떠오른 " + playerName + "은(는) 분노를 이기지 못하고 곧장 마왕에게 싸움을 걸었다.");
+
+        //랜덤 엔딩 2
+        textMap.Add(70000, playerName + "은(는).....");
+        textMap.Add(70001, "결국 마왕을 처치했다.");
+        textMap.Add(70002, "마왕의 숨이 끊어졌고");
+        textMap.Add(70003, "마왕이 죽었다는 사실은 순식간에 퍼져나갔다.");
+        textMap.Add(70004, "이 세계는 평화가 찾아왔다.");
+        textMap.Add(70005, "용사 " + playerName + "은(는) 마왕이 자신의 쌍둥이 동생이었다는 사실을 누구에게도 말하지 않았다.");
+        textMap.Add(70006, "훗날 " + playerName + "은(는) 마왕을 물리친 용사로 기억되고,");
+        textMap.Add(70007, "그 누구도 마왕과 용사가 가족이었다는 것을 모를 것이다.");
+        textMap.Add(70008, "-랜덤 엔딩 2[진엔딩인데 뭔가 찝찝하네]-");
+        textMap.Add(70009, "-축하드립니다. 이 게임의 진엔딩을 보셨네요.-");
+        textMap.Add(70010, "-끝이 찝찝해도 어쩔 수 없습니다.-");
+        textMap.Add(70011, "-원래 도박의 끝은 구린 법이니까요.-");
+
+        //게임 오버
+        textMap.Add(80000, playerName + "은(는).....");
+        textMap.Add(80001, "험난한 모험을 견디지 못했다.");
+        textMap.Add(80002, playerName + "의 숨이 끊어졌고");
+        textMap.Add(80003, "용사" + playerName + "이(가) 죽었다는 사실은 순식간에 퍼져나갔다.");
+        textMap.Add(80004, "이 세계 어딘가에서 마왕은 웃고 있을 것이다.");
+        textMap.Add(80005, "그렇게 용사 " + playerName + "의 모험은 끝을 맞이했다.");
+        textMap.Add(80006, "-[게임 오버]-");
+        textMap.Add(80007, "-이번엔 운이 안좋으셨나 봅니다.-");
+
+
         //오류 메세지
         textMap.Add(90000, "인카운터 계산 과정에 오류가 생겼습니다.");
     }
