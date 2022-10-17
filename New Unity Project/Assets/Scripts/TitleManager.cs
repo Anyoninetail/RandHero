@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class TitleManager : MonoBehaviour
 {
     public InputField inputField;
+
     public void GameStart()
     {
         if(inputField.text != "")

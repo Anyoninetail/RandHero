@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public GameObject randomGame;
     public GameObject closeRandomGame;
     public GameObject selectPanel;
+    public GameObject chest;
     public Button randomGameButton;
     public Button coinFront;
     public Button coinBack;
@@ -145,6 +146,10 @@ public class GameManager : MonoBehaviour
             //악천후
             case 40003:
                 encounterImage.sprite = encounterImages[2];
+                break;
+            //상자
+            case 24004:
+                chest.SetActive(true);
                 break;
             //인트로
             case 10000:
@@ -316,8 +321,8 @@ public class GameManager : MonoBehaviour
             closeRandomGame.SetActive(false);
             randomGameButton.interactable = false;
             randomGameButtonText.text = "어느 면일지 골라보세요";
-            coinFront.enabled = true;
-            coinBack.enabled = true;
+            coinFront.interactable = true;
+            coinBack.interactable = true;
         }
     }
 
@@ -337,11 +342,11 @@ public class GameManager : MonoBehaviour
         coin.gameObject.SetActive(true);
         if (Random.Range(0, 2) == 1)
         {
-            StartCoroutine(FlipCoin(2160, isFrontSelected));
+            StartCoroutine(FlipCoin(7200, isFrontSelected));
         }
         else
         {
-            StartCoroutine(FlipCoin(2160 - 180, isFrontSelected));
+            StartCoroutine(FlipCoin(7200 - 360, isFrontSelected));
         }
         
     }
@@ -363,25 +368,20 @@ public class GameManager : MonoBehaviour
 
     IEnumerator FlipCoin(int degree, bool isFrontSelected)
     {
-        for(int i = 0; i < 240; i++)
+        for(int i = 0; i < 180; i++)
         {
-            coin.transform.Rotate(Vector3.right * (degree / 240));
+            coin.sprite = coinImages[2];
+            coin.transform.Rotate(Vector3.right * (degree / 180));
             yield return new WaitForSeconds(0.01f);
-            if(coin.transform.rotation.x < 180)
-            {
-                coin.sprite = coinImages[1];
-            }
-            else
-            {
-                coin.sprite = coinImages[0];
-            }
         }
-        if(degree == 2160)
+        if(degree == 7200)
         {
+            coin.sprite = coinImages[1];
             StopCoin(false, isFrontSelected);
         }
         else
         {
+            coin.sprite = coinImages[0];
             StopCoin(true, isFrontSelected);
         }
     }
@@ -389,8 +389,8 @@ public class GameManager : MonoBehaviour
     IEnumerator ResetRandomGame()
     {
         yield return new WaitForSecondsRealtime(2.0f);
-        coinFront.enabled = false;
-        coinBack.enabled = false;
+        coinFront.interactable = false;
+        coinBack.interactable = false;
         coin.gameObject.SetActive(false);
         selectPanel.SetActive(true);
         randomGameButtonText.text = "게임하기(3골드 필요)";

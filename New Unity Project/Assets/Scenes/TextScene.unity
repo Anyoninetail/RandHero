@@ -479,7 +479,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.9607844, g: 0.9607844, b: 0.9607844, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -493,7 +493,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 421307657}
   m_OnClick:
     m_PersistentCalls:
@@ -1383,7 +1383,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.9607844, g: 0.9607844, b: 0.9607844, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -1397,7 +1397,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1076722992}
   m_OnClick:
     m_PersistentCalls:
@@ -1759,6 +1759,7 @@ MonoBehaviour:
   coinImages:
   - {fileID: 21300000, guid: a5fac34aa0343ee43a73aa718c640b8f, type: 3}
   - {fileID: 21300000, guid: abe98912e85c7bf41b5cd9e1a2de9624, type: 3}
+  - {fileID: 21300000, guid: bb9634c70ed16074e85d77ee7059b402, type: 3}
   encounterImages:
   - {fileID: 21300000, guid: 5d4170e994f935546bd9b7999d5c9c4a, type: 3}
   - {fileID: 21300000, guid: 58247892417093d42a68e8639261f983, type: 3}
@@ -1770,6 +1771,7 @@ MonoBehaviour:
   randomGame: {fileID: 1799713276}
   closeRandomGame: {fileID: 1198798205}
   selectPanel: {fileID: 652434601}
+  chest: {fileID: 1481516494}
   randomGameButton: {fileID: 1696404170}
   coinFront: {fileID: 1076722991}
   coinBack: {fileID: 421307656}
@@ -2716,7 +2718,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: abe98912e85c7bf41b5cd9e1a2de9624, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bb9634c70ed16074e85d77ee7059b402, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
