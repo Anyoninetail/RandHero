@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour
                 encounterImage.sprite = encounterImages[2];
                 break;
             //상자
-            case 24004:
+            case 24002:
                 chest.SetActive(true);
                 break;
             //인트로
@@ -200,6 +200,7 @@ public class GameManager : MonoBehaviour
             //전투 외 행동
             //보물상자에 금화가 가득?!
             case 24201:
+                chest.SetActive(false);
                 money += 15;
                 Encounter();
                 break;
@@ -258,6 +259,11 @@ public class GameManager : MonoBehaviour
         {
             hp = 0;
             hpBar.fillAmount = 0;
+        }
+        else if(hp > 25)
+        {
+            hp = 25;
+            hpBar.fillAmount = 1;
         }
         else
         {
