@@ -9,6 +9,9 @@ public class TitleManager : MonoBehaviour
 
     public void GameStart()
     {
+        GameManager.mobType = 0;
+        GameManager.isIntro = true;
+        
         if(inputField.text != "")
         {
             TextManager.playerName = inputField.text;
@@ -16,7 +19,7 @@ public class TitleManager : MonoBehaviour
         else
         {
             LoadNameMap();
-            TextManager.playerName = playerNames.GetValueOrDefault(Random.Range(0, 31));
+            TextManager.playerName = playerNames.GetValueOrDefault(Random.Range(0, 36));
         }
 
         SceneLoader.Instance.LoadScene("TextScene");
@@ -57,5 +60,10 @@ public class TitleManager : MonoBehaviour
         playerNames.Add(28, "µş±âÄÉÀÌÅ©");
         playerNames.Add(29, "ÇÁ¸®Æ¼¿ì¸Õ");
         playerNames.Add(30, "ÇÚ¼¶°¡ÀÌ");
+        playerNames.Add(31, "ÇĞ»ıÈ¸Àå");
+        playerNames.Add(32, "·£´ı¿ë»ç");
+        playerNames.Add(33, "»õ¿ìÆ¢±è");
+        playerNames.Add(34, "ÃÊÄÚÆÄÀÌ");
+        playerNames.Add(35, "¿¾³¯¶±ººÀÌ");
     }
 }

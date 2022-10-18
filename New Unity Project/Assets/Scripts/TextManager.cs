@@ -79,12 +79,6 @@ public class TextManager : MonoBehaviour
             originText = textMap.GetValueOrDefault(++textNum);
             StartText();
         }
-        else if(GameManager.money < 3 && textNum == 32000)
-        {
-            textNum = 67991;
-            nextTextNum = -1;
-            StartText();
-        }
         else if(nextTextNum != -1)
         {
             textNum += nextTextNum;
@@ -442,7 +436,7 @@ public class TextManager : MonoBehaviour
         textMap.Add(80000, playerName + "은(는).....");
         textMap.Add(80001, "험난한 모험을 견디지 못했다.");
         textMap.Add(80002, playerName + "의 숨이 끊어졌고");
-        textMap.Add(80003, "용사" + playerName + "이(가) 죽었다는 사실은 순식간에 퍼져나갔다.");
+        textMap.Add(80003, "용사 " + playerName + "이(가) 죽었다는 사실은 순식간에 퍼져나갔다.");
         textMap.Add(80004, "이 세계 어딘가에서 마왕은 웃고 있을 것이다.");
         textMap.Add(80005, "그렇게 용사 " + playerName + "의 모험은 끝을 맞이했다.");
         textMap.Add(80006, "-[게임 오버]-");

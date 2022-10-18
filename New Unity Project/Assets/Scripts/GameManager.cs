@@ -159,6 +159,13 @@ public class GameManager : MonoBehaviour
             case 60000:
                 encounterImage.sprite = encounterImages[4];
                 break;
+            case 32001:
+                if (money < 3)
+                {
+                    textManager.textNum = 67991;
+                    textManager.nextTextNum = -1;
+                }
+                break;
             default:
                 break;
         }
@@ -243,6 +250,7 @@ public class GameManager : MonoBehaviour
             //엔딩
             case 61014:
             case 70011:
+            case 80007:
                 SceneLoader.Instance.LoadScene("Title");
                 break;
             //버그
